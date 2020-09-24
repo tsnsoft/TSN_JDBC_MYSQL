@@ -1,4 +1,4 @@
-# TSN_ODBC_MSACCESS_LINUX
+# TSN_JDBC_MYSQL
 Простейший пример работы с базой данных MySQL через JDBC в NetBeans
 
 ![srcreenshot](Screenshot_1.png)
