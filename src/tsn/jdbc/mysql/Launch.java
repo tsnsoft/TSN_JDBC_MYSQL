@@ -12,7 +12,7 @@ public class Launch {
         // РАБОТА С БАЗОЙ ДАННЫХ MYSQL ЧЕРЕЗ JDBC
         try {
             // Адрес нашей базы данных "tsn_demo" на локальном компьютере (localhost)
-            String url = "jdbc:mysql://localhost:3306/tsn_demo?serverTimezone=UTC&useSSL=false";
+            String url = "jdbc:mysql://localhost:3306/tsn_demo?serverTimezone=Asia/Almaty&useSSL=false";
 
             // Создание свойств соединения с базой данных
             Properties authorization = new Properties();
