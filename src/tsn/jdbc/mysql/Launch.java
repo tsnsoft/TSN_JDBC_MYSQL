@@ -12,12 +12,12 @@ public class Launch {
         // РАБОТА С БАЗОЙ ДАННЫХ MYSQL ЧЕРЕЗ JDBC
         try {
             // Адрес нашей базы данных "tsn_demo" на локальном компьютере (localhost)
-            String url = "jdbc:mysql://localhost:3306/tsn_demo?&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+            String url = "jdbc:mysql://localhost:3306/tsn_demo?serverTimezone=UTC&useSSL=false";
 
             // Создание свойств соединения с базой данных
             Properties authorization = new Properties();
             authorization.put("user", "root"); // Зададим имя пользователя БД
-            authorization.put("password", "PassW0rd++"); // Зададим пароль доступа в БД
+            authorization.put("password", "PassW0Rd+"); // Зададим пароль доступа в БД
 
             // Создание соединения с базой данных
             Connection connection = DriverManager.getConnection(url, authorization);
