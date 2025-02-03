@@ -10,32 +10,30 @@ public class Launch {
 
     public static void main(String[] args) {
         // РАБОТА С БАЗОЙ ДАННЫХ MYSQL ЧЕРЕЗ JDBC
-        try {
-            // Адрес нашей базы данных "tsn_demo" на локальном компьютере (localhost)
-            String url = "jdbc:mysql://localhost:3306/tsn_demo?serverTimezone=Asia/Almaty&useSSL=false";
+        // Адрес нашей базы данных "tsn_demo" на локальном компьютере (localhost)
+        String url = "jdbc:mysql://localhost:3306/tsn_demo?serverTimezone=Asia/Almaty&useSSL=false";
 
-            // Создание свойств соединения с базой данных
-            Properties authorization = new Properties();
-            authorization.put("user", "root"); // Зададим имя пользователя БД
-            authorization.put("password", "PassW0Rd+"); // Зададим пароль доступа в БД
+        // Создание свойств соединения с базой данных
+        Properties authorization = new Properties();
+        authorization.put("user", "root"); // Зададим имя пользователя БД
+        authorization.put("password", "PassW0Rd++"); // Зададим пароль доступа в БД
 
-            // Создание соединения с базой данных
-            Connection connection = DriverManager.getConnection(url, authorization);
+        // Используем try-with-resources для автоматического закрытия ресурсов
+        try (Connection connection = DriverManager.getConnection(url, authorization);
+             Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+             ResultSet table = statement.executeQuery("SELECT * FROM my_books")) {
 
-            // Создание оператора доступа к базе данных
-            Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE);
-
-            // Выполнение запроса к базе данных, получение набора данных
-            ResultSet table = statement.executeQuery("SELECT * FROM my_books");
-
-            table.first(); // Выведем имена полей
+            // Выводим имена полей
+            System.out.println("Имена полей таблицы:");
+            table.first(); // Переместимся на первую строку
             for (int j = 1; j <= table.getMetaData().getColumnCount(); j++) {
                 System.out.print(table.getMetaData().getColumnName(j) + "\t\t");
             }
             System.out.println();
 
-            table.beforeFirst(); // Выведем записи таблицы
+            // Выводим записи таблицы
+            System.out.println("Записи таблицы:");
+            table.beforeFirst(); // Переместимся перед первой строкой
             while (table.next()) {
                 for (int j = 1; j <= table.getMetaData().getColumnCount(); j++) {
                     System.out.print(table.getString(j) + "\t\t");
@@ -43,14 +41,9 @@ public class Launch {
                 System.out.println();
             }
 
-            if (table != null) { table.close(); } // Закрытие набора данных
-            if (statement != null) { statement.close(); } // Закрытие базы данных
-            if (connection != null) { connection.close(); } // Отключение от базы данных
-
         } catch (Exception e) {
             System.err.println("Error accessing database!");
             e.printStackTrace();
         }
     }
-
 }
